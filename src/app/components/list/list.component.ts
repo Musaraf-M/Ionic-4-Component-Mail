@@ -6,15 +6,15 @@ import { Component, OnInit,Input, Output,EventEmitter } from '@angular/core';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  @Input() list: Object;
-  @Output() delete = new EventEmitter<Object>();
-
-  constructor() {}
-
-  // emit the event to the parent
-  deleteItem() {
-    this.delete.emit(this.list);
+  @Input() entry: Object;
+  @Output() public remove = new EventEmitter<Object>();
+    constructor() { }
+  
+    ngOnInit() {}
+  
+    //child passes the info to the parent to remove the entry
+    delete() {
+      this.remove.emit(this.entry);
+    }
+  
   }
-  ngOnInit() {}
-
-}

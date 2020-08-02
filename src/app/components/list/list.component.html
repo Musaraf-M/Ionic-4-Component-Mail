@@ -1,10 +1,10 @@
 <ion-item>
-  <!-- item name -->
-  <ion-label item-start>{{list.name}}</ion-label>
-  <ion-label item-start>{{list.subject}}</ion-label>
-
-  <!-- delete button -->
-  <button ion-button item-end (click)="deleteItem()">
-    <ion-icon slot="icon-only" name="trash"></ion-icon>
-  </button>
+  <ion-avatar slot="start">
+    <img src="../../../assets/my pic.jpg">
+  </ion-avatar>
+  <ion-label>
+    <h2>{{entry.name}}</h2>
+    <h3>{{entry.subject}}</h3>
+  </ion-label>
+  <ion-icon (click)="delete()" slot="end" name="trash-outline"></ion-icon>
 </ion-item>

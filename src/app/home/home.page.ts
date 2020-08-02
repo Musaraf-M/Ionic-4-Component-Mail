@@ -7,29 +7,24 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-    entryList: Object[] = [
-      { "id": 1, "name": 'Musaraf' , "subject": 'Hello hi'},
-      { "id": 2, "name": 'Musaraf' , "subject": 'Hello hi'},
-      { "id": 3, "name": 'Musaraf' , "subject": 'Hello hi'}
-    ];
-  
-
-
-  constructor(public alertController: AlertController) {}
-
-  deleteItem(entryList: Object) {
-    // filter the given item and store it in the same array
-    this.entryList = this.entryList.filter((element) => {
-      return element["id"] !== entryList["id"];
+  mail: Object[] = [
+    {id: 1, 
+     name: "Musaraf",
+     subject:"Hi! Hello everyone",
+    },
+  ];
+  constructor(public alertController: AlertController) {
+    
+  }
+  delete(entry: Object) {
+    this.mail = this.mail.filter((element) => {
+      return element["id"] !== entry["id"];
     });
   }
-
-
-
   async presentAlertPrompt() {
     const alert = await this.alertController.create({
-      header: 'Add Mail',
+      cssClass: 'my-custom-class',
+      header: 'Mail Data',
       inputs: [
         {
           name: 'name',
@@ -38,10 +33,9 @@ export class HomePage {
         },
         {
           name: 'subject',
-          type: 'text',
+          type: 'textarea',
           placeholder: 'Enter subject'
-        }
-        
+        },
       ],
       buttons: [
         {
@@ -49,26 +43,32 @@ export class HomePage {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: 'Ok',
-          handler: (data) => {
-            console.log('Confirm Ok');
-            
-            console.log(data.name,data.subject);
-            const length = this.entryList.length - 1;
-            const maxId = this.entryList[length]["id"];
-
-    // add an item to the array
-    this.entryList.push({ id: maxId + 1, name: data.name, subject: data.subject });
-
-            
+          handler: async data => {
+            if((data.name && data.subject) == ""){
+              const errorAlert = await this.alertController.create({
+                  cssClass: 'my-custom-class',
+                  message: 'Please do fill the Information...',
+                  buttons: [{
+                    text: 'Ok',
+                    handler: () => {
+                    this.presentAlertPrompt();
+                    }
+                  }]
+                });
+                errorAlert.present();
+            }
+            else{
+              const length = this.mail.length - 1;
+              const maxId = this.mail[length]["id"];
+              this.mail.push({ id: maxId + 1, name: data.name, subject: data.subject });
+              }
           }
         }
       ]
     });
-
     await alert.present();
   }
 }

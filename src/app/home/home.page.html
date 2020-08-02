@@ -1,23 +1,18 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Mail
-    </ion-title>
+    <ion-title>Mail</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-list>
-    <app-list
-      *ngFor="let list of entryList"
-      [entryList]="list"
-      (delete)="deleteItem($event)"
-    ></app-list>
+    <app-list 
+    *ngFor="let entry of mail"
+    [entry]="entry"
+    (remove)="delete($event)"></app-list>
   </ion-list>
-  <app-list></app-list>
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button >
-      <ion-icon name="add" (click)="presentAlertPrompt()"></ion-icon>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+    <ion-fab-button (click)="presentAlertPrompt()">
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
