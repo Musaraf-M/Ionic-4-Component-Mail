@@ -1,3 +1,10 @@
-<p>
-  list works!
-</p>
+<ion-item>
+  <!-- item name -->
+  <ion-label item-start>{{list.name}}</ion-label>
+  <ion-label item-start>{{list.subject}}</ion-label>
+
+  <!-- delete button -->
+  <button ion-button item-end (click)="deleteItem()">
+    <ion-icon slot="icon-only" name="trash"></ion-icon>
+  </button>
+</ion-item>
